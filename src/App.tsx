@@ -66,7 +66,7 @@ function AppContent() {
       case '/health': return { title: 'System Health', subtitle: 'Fraud & Analytics' };
       case '/kyc': return { title: 'Identity Vault', subtitle: 'Verification' };
       case '/admin': return { title: 'Admin Command', subtitle: 'Operations' };
-      default: return { title: 'Kinetic Trust', subtitle: '' };
+      default: return { title: 'Pragati', subtitle: '' };
     }
   };
 

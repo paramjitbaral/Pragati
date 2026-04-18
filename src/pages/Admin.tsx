@@ -88,7 +88,7 @@ export function AdminPage() {
       <header className="mb-10 flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-black text-[#001944] font-headline tracking-tighter uppercase leading-none">Admin Command Center</h1>
-          <p className="text-[#4a6ba5]/60 text-[10px] font-black uppercase tracking-[0.4em] mt-2 italic">Authorized Personnel Only • Kinetic Infrastructure</p>
+          <p className="text-[#4a6ba5]/60 text-[10px] font-black uppercase tracking-[0.4em] mt-2 italic">Authorized Personnel Only • Pragati Infrastructure</p>
         </div>
         <div className="flex items-center gap-4 bg-white p-3 rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-50">
            <div className="w-10 h-10 bg-[#001944] rounded-xl flex items-center justify-center">

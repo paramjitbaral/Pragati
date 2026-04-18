@@ -105,7 +105,7 @@ export function KYCPage() {
       {/* Header */}
       <header className="flex justify-between items-center w-full px-10 py-5 flex-shrink-0 z-50">
         <div className="text-lg font-black tracking-tight text-[#001944] font-headline cursor-pointer transition-transform hover:scale-105 active:scale-95" onClick={() => navigate('/')}>
-          Kinetic Trust
+          Pragati
         </div>
         <div className="flex items-center gap-6">
           <button className="text-[#4a6ba5] hover:text-[#001944] transition-colors relative">
@@ -389,7 +389,7 @@ export function KYCPage() {
 
       <footer className="w-full py-6 text-center text-primary/10 flex-shrink-0 mt-auto z-50">
         <div className="max-w-7xl mx-auto px-10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[10px] font-black uppercase tracking-[0.4em]">© 2024 Kinetic Trust Infrastructure</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.4em]">© 2024 Pragati Infrastructure</p>
           <div className="flex gap-10">
             <a className="text-[10px] font-black uppercase tracking-[0.4em] hover:text-secondary transition-colors" href="#">Privacy Protocol</a>
             <a className="text-[10px] font-black uppercase tracking-[0.4em] hover:text-secondary transition-colors" href="#">Vault Terms</a>

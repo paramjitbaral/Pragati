@@ -125,7 +125,7 @@ export function SignupPage() {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://picsum.photos/seed/kinetic-minimal-signup/1200/1600" 
+            src="https://picsum.photos/seed/pragati-minimal-signup/1200/1600" 
             className="w-full h-full object-cover opacity-40 grayscale contrast-125"
             alt="Minimal Background"
             referrerPolicy="no-referrer"
@@ -206,7 +206,7 @@ export function SignupPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-surface-container-low border border-outline-variant/30 rounded-xl py-3 pl-11 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all"
-                  placeholder="partner@kinetic.trust"
+                  placeholder="partner@pragati.app"
                   required
                 />
               </div>

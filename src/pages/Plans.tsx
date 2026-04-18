@@ -211,7 +211,7 @@ export function Plans() {
         <div className="flex-1 z-10">
           <h3 className="font-headline text-2xl font-extrabold mb-3 tracking-tight">Professional Policy Shield</h3>
           <p className="text-primary-fixed-dim text-xs leading-relaxed mb-5 opacity-80">
-            Kinetic Trust's parametric architecture ensures that your payouts are determined by verifiable data, not manual claims adjusters. This means no paperwork, no waiting, and 100% transparency. Your policy is an immutable smart contract on our private node.
+            Pragati's parametric architecture ensures that your payouts are determined by verifiable data, not manual claims adjusters. This means no paperwork, no waiting, and 100% transparency. Your policy is an immutable smart contract on our private node.
           </p>
           <div className="flex flex-wrap gap-3">
             <button className="px-5 py-2.5 bg-white text-primary rounded-xl font-bold text-[10px] uppercase tracking-widest flex items-center gap-2">

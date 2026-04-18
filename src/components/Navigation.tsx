@@ -31,8 +31,8 @@ export function Sidebar() {
             <Shield className="w-5 h-5 fill-current" />
           </div>
           <div>
-            <h3 className="font-headline font-bold text-primary leading-none text-base tracking-tight">Kinetic</h3>
-            <p className="text-[10px] text-outline uppercase tracking-[0.15em] font-medium mt-0.5">Trust Framework</p>
+            <h3 className="font-headline font-extrabold text-primary leading-none text-[1.05rem] tracking-[-0.03em]">Pragati</h3>
+            <p className="text-[10px] text-outline uppercase tracking-[0.22em] font-medium mt-0.5">Trust Framework</p>
           </div>
         </div>
       </div>

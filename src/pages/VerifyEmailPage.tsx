@@ -73,7 +73,7 @@ export function VerifyEmailPage() {
           </div>
           <h2 className="font-headline font-black text-3xl text-primary mb-4">Identity Verified</h2>
           <p className="text-outline font-medium text-sm leading-relaxed mb-8">
-            Your architect profile has been successfully activated. Welcome to the Kinetic Trust network.
+            Your architect profile has been successfully activated. Welcome to the Pragati network.
           </p>
           <div className="text-[10px] font-bold uppercase tracking-widest text-outline animate-pulse">
             Entering System...
