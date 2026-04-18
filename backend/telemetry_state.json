@@ -1,0 +1,32 @@
+{
+  "rainIntensity": 0,
+  "ambientTemp": 23.6,
+  "windVelocity": 5,
+  "timestamp": "2026-03-30T19:56:19.880Z",
+  "source": "Tomorrow.io",
+  "isVerified": true,
+  "trends": {
+    "rain": 0,
+    "temp": -4.5,
+    "wind": 7.2
+  },
+  "activity": [
+    47,
+    57,
+    62,
+    71,
+    85,
+    65,
+    58,
+    56,
+    52,
+    31,
+    47,
+    26,
+    42,
+    65,
+    73
+  ],
+  "zoneCoverage": 98.5,
+  "disruptionDetected": false
+}

@@ -1,0 +1,129 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+         request.auth.token.email == "sworajbaral04@gmail.com");
+    }
+
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    function uidUnchanged() {
+      return !('uid' in request.resource.data) || request.resource.data.uid == request.auth.uid;
+    }
+
+    function uidNotModified() {
+      return !('uid' in request.resource.data) || request.resource.data.uid == resource.data.uid;
+    }
+
+    function isValidEmail(email) {
+      return email is string && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    // ===============================================================
+    // Domain Validators
+    // ===============================================================
+    function isValidUser(data) {
+      return isAuthenticated();
+    }
+
+    function isValidPlan(data) {
+      return hasRequiredFields(['id', 'name', 'premium', 'coverage', 'tier']) &&
+             data.id is string &&
+             data.name is string && data.name.size() > 0 &&
+             data.premium is number && data.premium >= 0 &&
+             data.coverage is number && data.coverage >= 0 &&
+             data.tier in ['Basic', 'Pro', 'Elite'];
+    }
+
+    function isValidPayout(data) {
+      return hasRequiredFields(['id', 'userId', 'amount', 'date', 'status']) &&
+             hasOnlyAllowedFields(['id', 'userId', 'amount', 'date', 'reason', 'triggerValue', 'status']) &&
+             data.id is string &&
+             data.userId is string &&
+             data.amount is number && data.amount >= 0 &&
+             data.status in ['pending', 'completed', 'failed'];
+    }
+
+    function isValidActivityLog(data) {
+      return hasRequiredFields(['id', 'userId', 'title', 'date', 'type']) &&
+             data.userId is string &&
+             data.title is string && data.title.size() > 0 &&
+             data.type in ['payout', 'system', 'billing', 'alert'];
+    }
+
+    function isValidTelemetry(data) {
+      return hasRequiredFields(['id', 'rainIntensity', 'ambientTemp', 'windVelocity', 'timestamp']) &&
+             data.rainIntensity is number &&
+             data.ambientTemp is number &&
+             data.windVelocity is number;
+    }
+
+    function isValidAlert(data) {
+      return hasRequiredFields(['id', 'type', 'message', 'timestamp', 'status']) &&
+             data.status in ['active', 'resolved'];
+    }
+
+    // ===============================================================
+    // Routes
+    // ===============================================================
+
+    // User profiles
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isOwner(userId) && isValidUser(request.resource.data) && request.resource.data.role == 'user' && uidUnchanged();
+      allow update: if isAuthenticated() && isValidUser(request.resource.data) && 
+                    ((isOwner(userId) && request.resource.data.role == resource.data.role && uidNotModified()) || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    // Insurance plans
+    match /plans/{planId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidPlan(request.resource.data);
+    }
+
+    // Payout history
+    match /payouts/{payoutId} {
+      allow read: if isAuthenticated() && (request.auth.uid == resource.data.userId || isAdmin());
+      allow write: if isAdmin() && isValidPayout(request.resource.data);
+    }
+
+    // Environmental telemetry
+    match /telemetry/{telemetryId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin() && isValidTelemetry(request.resource.data);
+    }
+
+    // System alerts
+    match /alerts/{alertId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin() && isValidAlert(request.resource.data);
+    }
+
+    // Activity logs
+    match /activity_logs/{logId} {
+      allow read: if isAuthenticated() && (request.auth.uid == resource.data.userId || isAdmin());
+      allow create: if isAuthenticated() && (request.auth.uid == request.resource.data.userId || isAdmin()) && isValidActivityLog(request.resource.data);
+      allow update, delete: if isAdmin();
+    }
+  }
+}

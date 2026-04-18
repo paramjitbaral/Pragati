@@ -1,0 +1,136 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile information including role and status.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique identifier for the user." },
+        "email": { "type": "string", "format": "email", "description": "The user's email address." },
+        "displayName": { "type": "string", "description": "The user's display name." },
+        "photoURL": { "type": "string", "format": "uri", "description": "The user's profile photo URL." },
+        "role": { "type": "string", "enum": ["user", "admin"], "description": "The user's role in the system." },
+        "location": { "type": "string", "description": "User's physical location or zone." },
+        "phoneNumber": { "type": "string", "description": "User's contact number." },
+        "biometricIdStatus": { "type": "string", "description": "Status of biometric ID verification." },
+        "biometricIdScore": { "type": "string", "description": "Score of biometric ID verification." },
+        "govtKycStatus": { "type": "string", "description": "Status of government KYC verification." },
+        "govtKycScore": { "type": "string", "description": "Score of government KYC verification." },
+        "behavioralTrustStatus": { "type": "string", "description": "Status of behavioral trust verification." },
+        "behavioralTrustScore": { "type": "string", "description": "Score of behavioral trust verification." },
+        "walletBalance": { "type": "number", "description": "Current available balance in the user's wallet." },
+        "reliabilityIndex": { "type": "number", "description": "User's reliability index percentage." },
+        "disruptionResilience": { "type": "number", "description": "User's disruption resilience percentage." },
+        "systemEvaluation": { "type": "string", "description": "System's evaluation quote for the user." },
+        "notificationPrefs": { "type": "string", "description": "User's notification preferences." },
+        "systemConfig": { "type": "string", "description": "User's system configuration version." },
+        "activePlanId": { "type": "string", "description": "The ID of the user's active insurance plan." },
+        "isVerified": { "type": "boolean", "description": "Whether the user's email is verified." },
+        "isPhoneVerified": { "type": "boolean", "description": "Whether the user's phone is verified." },
+        "isIdentityVerified": { "type": "boolean", "description": "Whether the user's identity is verified." },
+        "verificationScore": { "type": "number", "description": "User's overall verification score." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the user profile was created." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "When the user profile was last updated." }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "InsurancePlan": {
+      "title": "Insurance Plan",
+      "description": "Available parametric insurance plans.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique plan identifier." },
+        "name": { "type": "string", "description": "Name of the plan." },
+        "description": { "type": "string", "description": "Description of the plan." },
+        "premium": { "type": "number", "description": "Monthly premium cost." },
+        "coverage": { "type": "number", "description": "Maximum coverage amount." },
+        "tier": { "type": "string", "enum": ["Basic", "Pro", "Elite"], "description": "Plan tier." }
+      },
+      "required": ["id", "name", "premium", "coverage", "tier"]
+    },
+    "PayoutHistory": {
+      "title": "Payout History",
+      "description": "History of insurance payouts for a user.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique payout identifier." },
+        "userId": { "type": "string", "description": "The ID of the user who received the payout." },
+        "amount": { "type": "number", "description": "The payout amount." },
+        "date": { "type": "string", "format": "date-time", "description": "When the payout occurred." },
+        "reason": { "type": "string", "description": "The reason for the payout." },
+        "triggerValue": { "type": "string", "description": "The value that triggered the payout (e.g., '52mm/hr')." },
+        "status": { "type": "string", "enum": ["pending", "completed", "failed"], "description": "Payout status." }
+      },
+      "required": ["id", "userId", "amount", "date", "status"]
+    },
+    "Telemetry": {
+      "title": "Environmental Telemetry",
+      "description": "Real-time environmental data readings.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "rainIntensity": { "type": "number" },
+        "ambientTemp": { "type": "number" },
+        "windVelocity": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "source": { "type": "string" }
+      },
+      "required": ["id", "rainIntensity", "ambientTemp", "windVelocity", "timestamp"]
+    },
+    "Alert": {
+      "title": "System Alert",
+      "description": "Active alerts for environmental disruptions.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "message": { "type": "string" },
+        "payoutAmount": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["active", "resolved"] }
+      },
+      "required": ["id", "type", "message", "timestamp", "status"]
+    },
+    "ActivityLog": {
+      "title": "Activity Log",
+      "description": "Logs of user activity and system events.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "amount": { "type": "string" },
+        "status": { "type": "string" },
+        "type": { "type": "string", "enum": ["payout", "system", "billing", "alert"] }
+      },
+      "required": ["id", "userId", "title", "date", "type"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents."
+    },
+    "/plans/{planId}": {
+      "schema": "InsurancePlan",
+      "description": "Available insurance plans."
+    },
+    "/payouts/{payoutId}": {
+      "schema": "PayoutHistory",
+      "description": "History of payouts."
+    },
+    "/telemetry/{telemetryId}": {
+      "schema": "Telemetry",
+      "description": "Environmental telemetry data."
+    },
+    "/alerts/{alertId}": {
+      "schema": "Alert",
+      "description": "Active system alerts."
+    },
+    "/activity_logs/{logId}": {
+      "schema": "ActivityLog",
+      "description": "User activity logs."
+    }
+  }
+}

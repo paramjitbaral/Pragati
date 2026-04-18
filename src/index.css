@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-headline: "Manrope", sans-serif;
+
+  --color-primary: #001944;
+  --color-primary-container: #002c6e;
+  --color-secondary: #4c56af;
+  --color-secondary-container: #959efd;
+  --color-tertiary: #271800;
+  --color-tertiary-container: #422c00;
+  --color-tertiary-fixed-dim: #ffba38;
+  --color-surface: #f7f9fc;
+  --color-surface-container: #eceef1;
+  --color-surface-container-low: #f2f4f7;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-high: #e6e8eb;
+  --color-surface-container-highest: #e0e3e6;
+  --color-on-surface: #191c1e;
+  --color-on-surface-variant: #454652;
+  --color-outline: #767683;
+  --color-outline-variant: #c6c5d4;
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-success: #2e7d32;
+}
+
+@layer base {
+  html {
+    font-size: 15px;
+  }
+
+  body {
+    @apply bg-surface text-on-surface font-sans antialiased;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-surface-container-lowest/70 backdrop-blur-xl border border-white/20;
+  }
+
+  .tech-card {
+    @apply bg-surface-container-lowest border border-outline-variant/20 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-outline-variant/30 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-outline-variant/50;
+  }
+}
